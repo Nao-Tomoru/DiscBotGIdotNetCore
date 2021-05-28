@@ -3,6 +3,8 @@ using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.EventArgs;
 using DSharpPlus.Interactivity;
+using DSharpPlus.Interactivity.Extensions;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -37,8 +39,8 @@ namespace DiscBotGIdotNetCore
                 Token = configJson.Token,                                                  //Token Initialization
                 TokenType = TokenType.Bot,                                                //Type of token
                 AutoReconnect = true,                                                      //Will attempt to recconnect if true
-                LogLevel = LogLevel.Debug,                                                  //Type of logging
-                UseInternalLogHandler = true                                              //Using of Internal logging base
+                MinimumLogLevel = LogLevel.Debug,                                                  //Type of logging
+                                               //Using of Internal logging base
             };
 
             Client = new DiscordClient(config);                                             //Initialization of Client with config
@@ -66,7 +68,7 @@ namespace DiscBotGIdotNetCore
 
             await Task.Delay(-1);                                                //To stay alive after all tasks done
         }
-        private Task OnClientReady(ReadyEventArgs e)                                //Stuff which bot will do on when it's ready
+        private Task OnClientReady(DiscordClient client,ReadyEventArgs e)                                //Stuff which bot will do on when it's ready
         {
             Console.WriteLine("done ClR");
             return Task.CompletedTask;
